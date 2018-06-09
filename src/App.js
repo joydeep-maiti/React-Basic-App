@@ -5,17 +5,20 @@ import Persons from './Person/Person'
 class App extends Component {
   state = {
     Persons : [
-      {name: 'Joydeep', dept: 'CSE'},
-      {name: 'Sanju', dept: 'CE' }
+      {name: 'Joydeep', dept: 'CSE', id: 'y3cc'},
+      {name: 'Sanju', dept: 'CE' , id: 'unrhvui'}
     ],
     displayPersons : true
   }
-  changeHandler = (event) => {
+  changeNameHandler = (event, id) => {
+    const pIndex = this.state.Persons.findIndex( p =>  p.id === id )
+    console.log(pIndex);
+    const person = {...this.state.Persons[pIndex]}
+    person.name = event.target.value;
+    const persons = [...this.state.Persons];
+    persons[pIndex] = person;
     this.setState({
-      Persons: [
-        { name: event.target.value, dept: 'CE' },
-        { name: 'Sanju', dept: 'CE' },
-      ]
+      Persons: persons
     })
   }
   toggleHandler = (Newname) => {
@@ -33,20 +36,29 @@ class App extends Component {
       displayPersons: !displayPersons
     })
   }
+  deleteHandler = (personIndex) => {
+    const persons = [...this.state.Persons];
+    persons.splice(personIndex, 1)
+    console.log(persons);
+    this.setState({Persons:persons});
+  }
   render() {
     return (
       <div className="App">
         <h1>React Basic App</h1>
-        <button className='BtnStyle' onClick={this.toggleHandler.bind(this,'Joydeep!!!!')}>Toggle</button>
+        {/* <button className='BtnStyle' onClick={this.toggleHandler.bind(this,'Joydeep!!!!')}>Toggle</button> */}
         <button className='BtnStyle' onClick={this.displayHandler}>Display/Hide</button>
         {this.state.displayPersons ?
-          <div>
-            <Persons name={this.state.Persons[0].name} dept={this.state.Persons[0].dept} click={this.changeHandler} />
-            <Persons name={this.state.Persons[1].name} dept={this.state.Persons[1].dept} />
-          </div>
+           this.state.Persons.map((person, index) => {
+            return (<Persons 
+              name={person.name} 
+              dept={person.dept} 
+              key={person.id} 
+              changeName={(event) => this.changeNameHandler(event, person.id)} 
+              delete={this.deleteHandler.bind(this, index)} />)
+          })
           : null
         }
-        
       </div>
     );
   }
