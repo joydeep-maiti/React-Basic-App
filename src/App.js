@@ -7,7 +7,8 @@ class App extends Component {
     Persons : [
       {name: 'Joydeep', dept: 'CSE'},
       {name: 'Sanju', dept: 'CE' }
-    ]
+    ],
+    displayPersons : true
   }
   changeHandler = (event) => {
     this.setState({
@@ -17,22 +18,35 @@ class App extends Component {
       ]
     })
   }
-  toggleHandler = () => {
+  toggleHandler = (Newname) => {
     console.log('clicked');
       this.setState({
         Persons:[
-          { name: 'Joy', dept: 'CE' },
+          { name: Newname, dept: 'CE' },
           { name: 'Sanju', dept: 'CE' },
         ]
       })
+  }
+  displayHandler = () => {
+    let displayPersons = this.state.displayPersons;
+    this.setState({
+      displayPersons: !displayPersons
+    })
   }
   render() {
     return (
       <div className="App">
         <h1>React Basic App</h1>
-        <button className='BtnStyle' onClick={this.toggleHandler}>Toggle</button>
-        <Persons name={this.state.Persons[0].name} dept={this.state.Persons[0].dept} click={this.changeHandler}/>
-        <Persons name={this.state.Persons[1].name} dept={this.state.Persons[1].dept}/>
+        <button className='BtnStyle' onClick={this.toggleHandler.bind(this,'Joydeep!!!!')}>Toggle</button>
+        <button className='BtnStyle' onClick={this.displayHandler}>Display/Hide</button>
+        {this.state.displayPersons ?
+          <div>
+            <Persons name={this.state.Persons[0].name} dept={this.state.Persons[0].dept} click={this.changeHandler} />
+            <Persons name={this.state.Persons[1].name} dept={this.state.Persons[1].dept} />
+          </div>
+          : null
+        }
+        
       </div>
     );
   }
