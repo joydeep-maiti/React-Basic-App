@@ -4,7 +4,8 @@ import './Person.css';
 const person = (props) => {
     return (
         <div className='Person'>
-            <p>Name : {props.name} </p>
+            <p> Name : {props.name} </p>
+            <p> Dept. : {props.dept} </p>
         </div>
     );
 

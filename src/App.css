@@ -1,4 +1,11 @@
 .App {
   text-align: center;
 }
+.BtnStyle {
+  width : 20%;
+  font-size: 30px;
+  color: white;
+  background-color: green;
+}
+
 
