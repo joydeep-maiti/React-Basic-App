@@ -1,9 +1,10 @@
 import React from 'react';
+import './Person.css';
 
-const person = () => {
+const person = (props) => {
     return (
-        <div>
-            <h1>Hi I am Joydeep</h1>
+        <div className='Person'>
+            <p>Name : {props.name} </p>
         </div>
     );
 
